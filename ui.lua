@@ -310,24 +310,6 @@ do
         return ws.CurrentCamera.ViewportSize
     end
     --
-    function utility:LoadImage(instance, imageName, imageLink)
-        local data
-        --
-        if isfile(library.folders.assets.."/"..imageName..".png") then
-            data = readfile(library.folders.assets.."/"..imageName..".png")
-        else
-            if imageLink then
-                data = game:HttpGet(imageLink)
-                writefile(library.folders.assets.."/"..imageName..".png", data)
-            else
-                return
-            end
-        end
-        --
-        if data and instance then
-            instance.Data = data
-        end
-    end
     --
     function utility:Lerp(instance, instanceTo, instanceTime)
         local currentTime = 0
@@ -540,7 +522,6 @@ do
             if window.currentContent.dropdown and window.currentContent.dropdown.open then
                 local dropdown = window.currentContent.dropdown
                 dropdown.open = not dropdown.open
-                utility:LoadImage(dropdown.dropdown_image, "arrow_down", "https://i.imgur.com/tVqy0nL.png")
                 --
                 for i,v in pairs(dropdown.holder.drawings) do
                     utility:Remove(v)
@@ -555,7 +536,6 @@ do
             elseif window.currentContent.multibox and window.currentContent.multibox.open then
                 local multibox = window.currentContent.multibox
                 multibox.open = not multibox.open
-                utility:LoadImage(multibox.multibox_image, "arrow_down", "https://i.imgur.com/tVqy0nL.png")
                 --
                 for i,v in pairs(multibox.holder.drawings) do
                     utility:Remove(v)
@@ -866,7 +846,6 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                     Visible = true,
                 })notification["notify__gradient"] = notify__gradient
                 --
-                utility:LoadImage(notify__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
                 --
                 utility:Lerp(notify_outline, {Transparency = 1}, 0.25)
                 utility:Lerp(notify_inline, {Transparency = 1}, 0.25)
@@ -2244,7 +2223,6 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
             Color = "textcolor"
         }
         --
-        utility:LoadImage(toggle__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
         --
         function toggle:get()
             return toggle.current
@@ -2341,10 +2319,6 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                 Visible = page.open
             }, section.visibleContent)
             --
-            if transp then
-                utility:LoadImage(colorpicker__transparency, "cptransp", "https://i.imgur.com/IIPee2A.png")
-            end
-            utility:LoadImage(colorpicker__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
             --
             function colorpicker:Set(color, transp_val)
                 if typeof(color) == "table" then
@@ -2580,13 +2554,9 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                                     Color = Color3.fromHSV(0, 0, 1 - colorpicker.current[4]),
                                 }, colorpicker.holder.drawings);colorpicker.holder.transparency_cursor[3] = colorpicker_open_transparency_cursor_color
                                 --
-                                utility:LoadImage(colorpicker_open_transparency_image, "transp", "https://i.imgur.com/ncssKbH.png")
                                 --utility:LoadImage(colorpicker_open_transparency_image, "transp", "https://i.imgur.com/VcMAYjL.png")
                             end
                             --
-                            utility:LoadImage(colorpicker_open_picker_image, "valsat", "https://i.imgur.com/wpDRqVH.png")
-                            utility:LoadImage(colorpicker_open_picker_cursor, "valsat_cursor", "https://raw.githubusercontent.com/mvonwalk/splix-assets/main/Images-cursor.png")
-                            utility:LoadImage(colorpicker_open_huepicker_image, "hue", "https://i.imgur.com/iEOsHFv.png")
                             --
                             window.currentContent.frame = colorpicker_open_inline
                             window.currentContent.colorpicker = colorpicker
@@ -2750,8 +2720,8 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                 Color = "textcolor"
             }
             --
-            utility:LoadImage(keybind__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
-            --
+
+			--
             function keybind:Shorten(string)
                 for i,v in pairs(shortenedInputs) do
                     string = string.gsub(string, i, v)
@@ -2942,7 +2912,6 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                             Visible = page.open
                         }, keybind.modemenu.drawings)
                         --
-                        utility:LoadImage(keybind__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
                         --
                         for i,v in pairs({"Always", "Toggle", "Hold"}) do
                             local button_title = utility:Create("TextLabel", {Vector2.new(modemenu_frame.Size.X/2,15 * (i-1)), modemenu_frame}, {
@@ -3097,7 +3066,6 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
             Color = "textcolor"
         }
         --
-        utility:LoadImage(slider__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
         --
         function slider:set(value)
             slider.current = math.clamp(math.round(value * slider.decimals) / slider.decimals, slider.min, slider.max)
@@ -3231,7 +3199,6 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
             callback = p_callback
         end
         --
-        utility:LoadImage(button_gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
         --
         library.began[#library.began + 1] = function(Input)
             if Input.UserInputType == Enum.UserInputType.MouseButton1 and button_outline.Visible and window.isVisible and utility:MouseOverDrawing({section.section_frame.Position.X, section.section_frame.Position.Y + button.axis, section.section_frame.Position.X + section.section_frame.Size.X, section.section_frame.Position.Y + button.axis + 20}) and not window:IsOverContent() then
@@ -3351,9 +3318,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                 OutlineColor = "textborder",
                 Color = "textcolor"
             }
-            --
-            utility:LoadImage(button_gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
-            --
+            --            --
             library.began[#library.began + 1] = function(Input)
                 if Input.UserInputType == Enum.UserInputType.MouseButton1 and button_outline.Visible and window.isVisible and utility:MouseOverDrawing({section.section_frame.Position.X + (i == 2 and (section.section_frame.Size.X/2) or 0), section.section_frame.Position.Y + button.axis, section.section_frame.Position.X + section.section_frame.Size.X - (i == 1 and (section.section_frame.Size.X/2) or 0), section.section_frame.Position.Y + button.axis + 20}) and not window:IsOverContent() then
                     buttons[i][2]()
@@ -3455,8 +3420,6 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
             Visible = page.open
         }, section.visibleContent);dropdown["dropdown_image"] = dropdown_image
         --
-        utility:LoadImage(dropdown_image, "arrow_down", "https://i.imgur.com/tVqy0nL.png")
-        utility:LoadImage(dropdown__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
         --
         function dropdown:Update()
             if dropdown.open and dropdown.holder.inline then
@@ -3502,9 +3465,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                 elseif utility:MouseOverDrawing({section.section_frame.Position.X, section.section_frame.Position.Y + dropdown.axis, section.section_frame.Position.X + section.section_frame.Size.X, section.section_frame.Position.Y + dropdown.axis + 15 +  20}) and not window:IsOverContent() then
                     if not dropdown.open then
                         window:CloseContent()
-                        dropdown.open = not dropdown.open
-                        utility:LoadImage(dropdown_image, "arrow_up", "https://i.imgur.com/SL9cbQp.png")
-                        --
+                        dropdown.open = not dropdown.open                        --
                         local dropdown_open_outline = utility:Create("Frame", {Vector2.new(0,19), dropdown_outline}, {
                             Size = utility:Size(1, 0, 0, 3 + (#options * 19), dropdown_outline),
                             Position = utility:Position(0, 0, 0, 19, dropdown_outline),
@@ -3562,9 +3523,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                         window.currentContent.frame = dropdown_open_inline
                         window.currentContent.dropdown = dropdown
                     else
-                        dropdown.open = not dropdown.open
-                        utility:LoadImage(dropdown_image, "arrow_down", "https://i.imgur.com/tVqy0nL.png")
-                        --
+                        dropdown.open = not dropdown.open                        --
                         for i,v in pairs(dropdown.holder.drawings) do
                             utility:Remove(v)
                         end
@@ -3579,7 +3538,6 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                 else
                     if dropdown.open then
                         dropdown.open = not dropdown.open
-                        utility:LoadImage(dropdown_image, "arrow_down", "https://i.imgur.com/tVqy0nL.png")
                         --
                         for i,v in pairs(dropdown.holder.drawings) do
                             utility:Remove(v)
@@ -3595,7 +3553,6 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                 end
             elseif Input.UserInputType == Enum.UserInputType.MouseButton1 and dropdown.open then
                 dropdown.open = not dropdown.open
-                utility:LoadImage(dropdown_image, "arrow_down", "https://i.imgur.com/tVqy0nL.png")
                 --
                 for i,v in pairs(dropdown.holder.drawings) do
                     utility:Remove(v)
@@ -3711,8 +3668,6 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
             Visible = page.open
         }, section.visibleContent);multibox["multibox_image"] = multibox_image
         --
-        utility:LoadImage(multibox_image, "arrow_down", "https://i.imgur.com/tVqy0nL.png")
-        utility:LoadImage(multibox__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
         --
         function multibox:Update()
             if multibox.open and multibox.holder.inline then
@@ -3790,9 +3745,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                 elseif utility:MouseOverDrawing({section.section_frame.Position.X, section.section_frame.Position.Y + multibox.axis, section.section_frame.Position.X + section.section_frame.Size.X, section.section_frame.Position.Y + multibox.axis + 15 +  20}) and not window:IsOverContent() then
                     if not multibox.open then
                         window:CloseContent()
-                        multibox.open = not multibox.open
-                        utility:LoadImage(multibox_image, "arrow_up", "https://i.imgur.com/SL9cbQp.png")
-                        --
+                        multibox.open = not multibox.open                        --
                         local multibox_open_outline = utility:Create("Frame", {Vector2.new(0,19), multibox_outline}, {
                             Size = utility:Size(1, 0, 0, 3 + (#options * 19), multibox_outline),
                             Position = utility:Position(0, 0, 0, 19, multibox_outline),
@@ -3856,8 +3809,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                         window.currentContent.multibox = multibox
                     else
                         multibox.open = not multibox.open
-                        utility:LoadImage(multibox_image, "arrow_down", "https://i.imgur.com/tVqy0nL.png")
-                        --
+						--
                         for i,v in pairs(multibox.holder.drawings) do
                             utility:Remove(v)
                         end
@@ -3871,9 +3823,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                     end
                 else
                     if multibox.open then
-                        multibox.open = not multibox.open
-                        utility:LoadImage(multibox_image, "arrow_down", "https://i.imgur.com/tVqy0nL.png")
-                        --
+                        multibox.open = not multibox.open                        --
                         for i,v in pairs(multibox.holder.drawings) do
                             utility:Remove(v)
                         end
@@ -3887,9 +3837,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                     end
                 end
             elseif Input.UserInputType == Enum.UserInputType.MouseButton1 and multibox.open then
-                multibox.open = not multibox.open
-                utility:LoadImage(multibox_image, "arrow_down", "https://i.imgur.com/tVqy0nL.png")
-                --
+                multibox.open = not multibox.open                --
                 for i,v in pairs(multibox.holder.drawings) do
                     utility:Remove(v)
                 end
@@ -4003,9 +3951,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
             OutlineColor = "textborder",
             Color = "textcolor"
         }
-        --
-        utility:LoadImage(keybind__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
-        --
+        --        --
         function keybind:Shorten(string)
             for i,v in pairs(shortenedInputs) do
                 string = string.gsub(string, i, v)
@@ -4201,9 +4147,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                         Transparency = 0.5,
                         Visible = page.open
                     }, keybind.modemenu.drawings)
-                    --
-                    utility:LoadImage(keybind__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
-                    --
+                    --                    --
                     for i,v in pairs({"Always", "Toggle", "Hold"}) do
                         local button_title = utility:Create("TextLabel", {Vector2.new(modemenu_frame.Size.X/2,15 * (i-1)), modemenu_frame}, {
                             Text = v,
@@ -4313,11 +4257,6 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
             Position = utility:Position(0, 4, 0, colorpicker.axis + (15/2) - (utility:GetTextBounds(name, theme.textsize, theme.font).Y/2), section.section_frame),
             Visible = page.open
         }, section.visibleContent)
-        --
-        if transp then
-            utility:LoadImage(colorpicker__transparency, "cptransp", "https://i.imgur.com/IIPee2A.png")
-        end
-        utility:LoadImage(colorpicker__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
         --
         function colorpicker:Set(color, transp_val)
             if typeof(color) == "table" then
@@ -4544,14 +4483,9 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                                 Position = utility:Position(0, 1, 0, 1, colorpicker_open_transparency_cursor_inline),
                                 Color = Color3.fromHSV(0, 0, 1 - colorpicker.current[4]),
                             }, colorpicker.holder.drawings);colorpicker.holder.transparency_cursor[3] = colorpicker_open_transparency_cursor_color
-                            --
-                            utility:LoadImage(colorpicker_open_transparency_image, "transp", "https://i.imgur.com/ncssKbH.png")
-                            --utility:LoadImage(colorpicker_open_transparency_image, "transp", "https://i.imgur.com/VcMAYjL.png")
+                            --                            --utility:LoadImage(colorpicker_open_transparency_image, "transp", "https://i.imgur.com/VcMAYjL.png")
                         end
                         --
-                        utility:LoadImage(colorpicker_open_picker_image, "valsat", "https://i.imgur.com/wpDRqVH.png")
-                        utility:LoadImage(colorpicker_open_picker_cursor, "valsat_cursor", "https://raw.githubusercontent.com/mvonwalk/splix-assets/main/Images-cursor.png")
-                        utility:LoadImage(colorpicker_open_huepicker_image, "hue", "https://i.imgur.com/iEOsHFv.png")
                         --
                         window.currentContent.frame = colorpicker_open_inline
                         window.currentContent.colorpicker = colorpicker
@@ -4691,10 +4625,6 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                 Visible = page.open
             }, section.visibleContent)
             --
-            if transp then
-                utility:LoadImage(colorpicker__transparency, "cptransp", "https://i.imgur.com/IIPee2A.png")
-            end
-            utility:LoadImage(colorpicker__gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
             --
             function colorpicker:Set(color, transp_val)
                 if typeof(color) == "table" then
@@ -4922,13 +4852,9 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
                                     Color = Color3.fromHSV(0, 0, 1 - colorpicker.current[4]),
                                 }, colorpicker.holder.drawings);colorpicker.holder.transparency_cursor[3] = colorpicker_open_transparency_cursor_color
                                 --
-                                utility:LoadImage(colorpicker_open_transparency_image, "transp", "https://i.imgur.com/ncssKbH.png")
+        
                                 --utility:LoadImage(colorpicker_open_transparency_image, "transp", "https://i.imgur.com/VcMAYjL.png")
                             end
-                            --
-                            utility:LoadImage(colorpicker_open_picker_image, "valsat", "https://i.imgur.com/wpDRqVH.png")
-                            utility:LoadImage(colorpicker_open_picker_cursor, "valsat_cursor", "https://raw.githubusercontent.com/mvonwalk/splix-assets/main/Images-cursor.png")
-                            utility:LoadImage(colorpicker_open_huepicker_image, "hue", "https://i.imgur.com/iEOsHFv.png")
                             --
                             window.currentContent.frame = colorpicker_open_inline
                             window.currentContent.colorpicker = colorpicker
@@ -5094,9 +5020,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
         library.colors[listbox_scroll_frame] = {
             Color = "accent"
         }
-        --
-        utility:LoadImage(listbox_gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
-        --
+        --        --
         function listbox:Refresh()
             for i = 1, #self.buttons do
                 local button = self.buttons[i]
@@ -5444,9 +5368,7 @@ local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
             --
             configLoader.buttons[i] = config_title
         end
-        --
-        utility:LoadImage(configLoader_gradient, "gradient", "https://i.imgur.com/5hmlrjX.png")
-        --
+        --        --
         function configLoader:Refresh()
             for i,v in pairs(configLoader.buttons) do
                 v.Color = i == configLoader.current and theme.accent or theme.textcolor
